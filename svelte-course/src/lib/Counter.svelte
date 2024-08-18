@@ -1,10 +1,18 @@
 <script>
-  let count = 0
-  const increment = () => {
-    count += 1
-  }
+	export let initialCount,
+		maxCount = 10;
+	let count = initialCount;
+
+	function increment() {
+		count++;
+		count = Math.min(maxCount, count);
+	}
 </script>
 
-<button on:click={increment}>
-  count is {count}
-</button>
+<button on:click={increment}>Clicks {count}</button>
+
+<style>
+	button {
+		padding: 2rem;
+	}
+</style>
