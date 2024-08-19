@@ -1,22 +1,31 @@
 <script>
-	import FaAngellist from 'svelte-icons/fa/FaAngellist.svelte';
-	import Button from './lib/Button.svelte';
-	import FaAngelist from 'svelte-icons/fa/FaAngellist.svelte';
+	import TodoList from './lib/TodoList.svelte';
+	import { v4 as uuid } from 'uuid';
 
-	function click() {
-		alert('clicked');
-	}
+	let todos = [
+		{
+			id: uuid(),
+			title: 'Todo 1',
+			completed: true
+		},
+		{
+			id: uuid(),
+			title: 'Todo 2',
+			completed: false
+		},
+		{
+			id: uuid(),
+			title: 'Todo 3',
+			completed: true
+		}
+	];
 </script>
 
-<Button
-	disabled
-	on:click|once={(event) => alert(JSON.stringify(event))}
-	on:mousedown={() => alert('asd')}
-	let:isLeftHovered
->
-	<div style:width="20px" slot="leftContent"><FaAngellist></FaAngellist></div>
-	Button {isLeftHovered}
-</Button>
+<TodoList bind:todos />
+
+<h2>
+	{todos.length}
+</h2>
 
 <style>
 </style>
