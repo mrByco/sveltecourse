@@ -3,6 +3,8 @@
 	export let shadow = false;
 	export let bgColor = undefined;
 	export let textColor = undefined;
+
+	let isLeftHovered;
 </script>
 
 <button
@@ -10,17 +12,35 @@
 	style:--buttonTextColor={textColor}
 	class:size-sm={size == 'small'}
 	class:size-lg={size == 'large'}
-	class:shadow><slot>Fallback content</slot></button
+	class:shadow
 >
+	{#if $$slots.leftContent}
+		<!-- svelte-ignore a11y-unknown-role -->
+		<div
+			class="left-content"
+			role="ARIA"
+			on:mouseenter={() => (isLeftHovered = true)}
+			on:mouseleave={() => (isLeftHovered = false)}
+		>
+			<slot name="leftContent"></slot>
+		</div>
+	{/if}
+	<slot {isLeftHovered}>Fallback content</slot>
+</button>
 
 <style lang="scss">
 	button {
+		display: flex;
+		align-items: center;
 		border: none;
 		background-color: var(--buttonBgColor);
 		color: var(--buttonTextColor);
 		padding: 15px 20px;
 		font-weight: bold;
 		border-radius: 5px;
+		.left-content {
+			margin-right: 10px;
+		}
 		cursor: pointer;
 
 		&:hover {
