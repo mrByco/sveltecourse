@@ -4,10 +4,14 @@
 	export let bgColor = undefined;
 	export let textColor = undefined;
 
+	console.log($$restProps);
+
 	let isLeftHovered;
 </script>
 
 <button
+	{...$$restProps}
+	on:click
 	style:--buttonBgColor={bgColor}
 	style:--buttonTextColor={textColor}
 	class:size-sm={size == 'small'}
@@ -18,7 +22,6 @@
 		<!-- svelte-ignore a11y-unknown-role -->
 		<div
 			class="left-content"
-			role="ARIA"
 			on:mouseenter={() => (isLeftHovered = true)}
 			on:mouseleave={() => (isLeftHovered = false)}
 		>
@@ -45,6 +48,10 @@
 
 		&:hover {
 			background-image: linear-gradient(rgba(0, 0, 0, 0.4) 0 0);
+		}
+		&:disabled {
+			opacity: 0.6;
+			cursor: not-allowed;
 		}
 
 		&:active {
